@@ -1,0 +1,2 @@
+{"ts":1351362738958,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1351362830093,"patch":[[{"diffs":[[1,"/*\nso, this is awesome.\n*/\n$(function () {\n    alert(\"hi\");    \n    \n    \n});"]],"start1":0,"start2":0,"length1":0,"length2":77}]],"length":77,"saved":false}
