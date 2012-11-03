@@ -1,6 +1,77 @@
- <!DOCTYPE html>
- <html>
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
- <script src="scalemodel.js"></script>
- hi
- </html>
+<!DOCTYPE html>
+<html>
+ 
+<head>
+
+<link href="./css/jsm.css" rel="stylesheet" type="text/css">
+<style>
+button {
+	border: 0px;
+	padding: 8px 10px;
+	border-radius: 1px;
+
+	cursor: pointer;
+	color: #fff;
+	background: #7aa76d;
+	font-size: 15px;
+
+	-webkit-transition: 0.15s background ease;
+	   -moz-transition: 0.15s background ease;
+	    -ms-transition: 0.15s background ease;
+	     -o-transition: 0.15s background ease;
+	        transition: 0.15s background ease;
+}
+	button:hover {
+		background: #91cd85;
+	}
+	button:active {
+		background: #60895a;
+	}
+	button+button {
+		margin-left: 5px;
+	}
+	
+div.center {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15%;
+	margin-bottom: auto;
+	text-align: center;
+}
+</style>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jsm.js"></script>
+<script>
+$(function() {
+	$('#modal').jsm({
+		method: 'init',
+		contents: '#contents',
+		coc: true
+	});
+	
+	$('button#show').bind('click', function(){$('#modal').jsm( 'open' );});
+	$('button#close').bind('click', function(){$('#modal').jsm( 'close' );});
+});
+</script>
+    
+</head>
+
+<body>
+
+	<div id="contents" class="center">
+    	<button id="show">Click me to see the magic!</button>
+    </div>
+
+	<div id="modal">
+    	<h1>It works!</h1>
+        <p>See, I told you it's better and faster.</p>
+        <br/>
+        <p>To close this, either click the 'exit' button below, or simply tap the 'ESC' key on your keyboard.</p>
+        <br/>
+       	<button id="close">Exit</button>
+    </div>
+
+</body>
+
+</html>
