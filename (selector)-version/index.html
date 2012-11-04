@@ -40,16 +40,15 @@ div.center {
 }
 </style>
 
-<script src="../js/jquery.min.js"></script>
-<script src="jsm.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jsm.js"></script>
 <script>
 $(function() {
-	$.jsm({
-		method:'init',
-		model: '#modal',
-		closeOnCoverClick: false
-	});
-
+	$('#modal').jsm('init');
+	
+	$('button#show').bind('click', function(){$('#modal').jsm( 'open' );});
+	$('button#close').bind('click', function(){$('#modal').jsm( 'close' );});
+	$('div.jsm-cover').bind('click', function(){$('#modal').jsm('close');});
 });
 </script>
     
@@ -58,16 +57,16 @@ $(function() {
 <body>
 
 	<div id="contents" class="center">
-    	<button id="show" onclick="$.jsm('#modal')">Click me to see the magic!</button>
+    	<button id="show">Click me to see the magic!</button>
     </div>
 
-	<div id="modal" style="display: none;">
+	<div id="modal">
     	<h1>It works!</h1>
         <p>See, I told you it's better and faster.</p>
         <br/>
         <p>To close this, either click the 'exit' button below, or simply tap the 'ESC' key on your keyboard.</p>
         <br/>
-       	<button id="close" onclick="$.jsm('close')">Exit</button>
+       	<button id="close">Exit</button>
     </div>
 
 </body>

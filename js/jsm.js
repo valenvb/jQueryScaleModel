@@ -1,3 +1,94 @@
-(function(a){var d={init:function(b){var c=a(this);a.extend({},b);c.addClass("jsm-popup");0===a("div.jsm-cover").length&&a(document.body).append(a(document.createElement("div")).addClass("jsm-cover"));a("html:first").is(".jsm-ready")||a("html:first").addClass("jsm-ready")},open:function(){var b=a(this),c=a.Event({type:"jsm:open",elm:this});b.trigger(c);c.isDefaultPrevented()||(a("html:first").addClass("jsm-active"),b.addClass("jsm-popup-animate"),a(window).bind("keydown",d.ifClose))},ifClose:function(b){void 0!==
-b.keyCode&&27===b.keyCode&&a(".jsm-popup-animate").jsm("close")},ifBlurClose:function(){a(".jsm-popup-animate").jsm("close")},close:function(){a(window).unbind("keydown",d.ifClose);var b=a(this),c=a.Event({type:"jsm:close",elm:this});b.trigger(c);c.isDefaultPrevented()||(a("html:first").removeClass("jsm-active"),b.removeClass("jsm-popup-animate"))},destroy:function(){var b=a(this),c=a.Event({type:"jsm:destroy",elm:this});b.trigger(c);c.isDefaultPrevented()||(0!==a("div.jsm-cover").length&&a("div.jsm-cover").remove(),
-a("html:first").is(".jsm-ready")&&a("html:first").removeClass("jsm-ready"),b.removeClass("jsm-popup"))}};d.show=d.open;a.fn.jsm=function(b){"string"===typeof b&&(b={method:b});"object"===typeof b&&(b=a.extend({method:"init"},b),d[b.method]?d[b.method].apply(this,b):a.error(".jsm('"+b.method+"'): action invalid."));return this}})(window.jQuery);
+(function($){
+	var methods = {
+		init: function(options){
+			
+				opt = $.extend({
+				model: '#model',
+				customModelContent: '.model-content',
+				content: 'Make sure you pass me some content!',
+				closeOnESC: true,
+				closeOnCoverClick: true
+			},options);
+			
+			if (opt.model != '#model' && opt.customModelContent != '.model-content') {
+				jsmModel = $(opt.model);
+				jsmContentHolder = $(opt.customModelContent);
+			} else {
+				$('body').append('<div id="jsm-model" class="jsm-popup"><span class="model-content"></span></div>');
+				jsmModel = $('div#jsm-model');
+				jsmContentHolder = $('.model-content')
+			};
+			
+			if ( $('div.jsm-cover').length === 0 )
+				$( document.body )
+					.append(
+						$( document.createElement('div') )
+							.addClass('jsm-cover')
+					)
+
+			if ( ! $('html:first').is('.jsm-ready') ) 
+			{ $('html:first').addClass('jsm-ready');}
+			
+			jsmInitCalled = true;
+		},
+		
+		open: function(content){
+			
+			var data = content;
+			
+			if ($(content).legnth!=0){
+				var content = $(content).html();
+			};
+			
+			jsmContentHolder.html(data);
+		
+			$('html:first').addClass('jsm-active');
+			jsmModel.addClass('jsm-popup-animate');
+			
+			
+		/* add event listeners*/
+			if (opt.closeOnCoverClick === true) {
+			$('div.jsm-cover').on('click',function(){$.jsm('close')})
+			};
+			
+			if (opt.closeOnESC === true){
+			$(window).bind('keydown', methods[ 'ifClose' ]);
+			};
+			
+		},
+		
+		ifClose: function(evt) {
+			evt.keyCode !== undefined && evt.keyCode === 27 && $.jsm( 'close' );
+		},
+					
+		close: function(){
+			$(window).unbind('keydown', methods[ 'ifClose' ]);
+			$('html:first').removeClass('jsm-active');
+			jsmModel.removeClass('jsm-popup-animate');
+			
+		},
+		
+		destroy: function (){
+		  
+		}
+	};
+	
+$.jsm = function(options, content){
+	
+	if(typeof (jsmInitCalled) != 'undefined' && options !=='close') { methods['open'].call(this, options)} else {
+	
+	if ( typeof(options) === 'string' ) options = { method: options };
+		
+		if ( typeof(options) === "object" ) {
+			opt = $.extend({
+				method: 'init',
+			}, options);
+			
+			
+			if ( methods[ opt.method ] ) methods[ opt.method ].apply( this, options );
+			else $.error( '.jsm(\'' + options.method + '\'): action invalid.' );
+		}
+	};
+};
+	
+})(jQuery);

@@ -2,7 +2,7 @@
  * 
  * jQuery implementation of Avgrund (http://labs.hakim.se/avgrund)
  *
- * Better and much faster CSS3D Modal. Or at least it will be when done.
+ * Better and much faster CSS3D Modal. Or at least it will be when it's done.
  *
  * Author: Valen Varangu Booth (http://github.com/valenvb)
  */
@@ -14,7 +14,7 @@
 			
 			// do your extend here
 			options = $.extend({
-				//
+				''
 			}, options);
 			
 			// then do whatever you want for 'init'
@@ -28,7 +28,10 @@
 							.addClass('jsm-cover')
 					)
 
-			if ( ! $('html:first').is('.jsm-ready') ) $('html:first').addClass('jsm-ready');
+			if ( ! $('html:first').is('.jsm-ready') ) 
+			{ $('html:first').addClass('jsm-ready');
+			
+			
 		},
 		
 		open : function  () {
@@ -106,6 +109,9 @@
 	// don't use $.jsm
 	// it's better to go like this:
 	$.fn.jsm = function( options ) {
+			
+    // begin plugin code here:
+
 		if ( typeof(options) === 'string' ) options = { method: options };
 		
 		if ( typeof(options) === "object" ) {
@@ -120,17 +126,9 @@
 		// you don't need to return till the end
 		return this;
 	};
+
 		
+
+
 })( window.jQuery );
 
-/*
-bind keyCode === 27
-
-var options = [
-	page-content : "body",
-	use-custom-model : false, // keep this as auto-detect
-	cutom-model-id : '',
-]
-
-content = $(options[page-content]);
-*/
